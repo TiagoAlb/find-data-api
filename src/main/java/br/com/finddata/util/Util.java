@@ -20,4 +20,9 @@ public class Util {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
         return dateFormat.format(date); 
     }
+    
+    public boolean STR_TO_BOOLEAN(String value) {
+        value = value.toLowerCase().trim();
+        return (value!=null) && (value.equals("true") || value.equals("sim") || value.equals("1"));
+    }
 }

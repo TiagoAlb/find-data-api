@@ -5,7 +5,11 @@
  */
 package br.com.finddata.controller;
 
+import br.com.finddata.model.Banco;
+import br.com.finddata.model.EnderecoInstituicaoFinanceira;
+import br.com.finddata.model.InstituicaoFinanceira;
 import br.com.finddata.util.Util;
+import br.com.finddata.util.layouts.BANCOS_EXCEL_FILE_LAYOUT;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -74,27 +78,43 @@ public class EnderecosInstituicoes {
     public String READ_FILE() throws IOException {
         if(fileName.contains("BANCOS"))
             return READ_FILE_BANCOS();
-        
-        
+       
         return "ERRO";
     }
     
     public String READ_FILE_BANCOS() throws IOException {
         FileInputStream file = new FileInputStream(new File(fileLocation + fileName));
         Workbook workbook = new XSSFWorkbook(file);
+        BANCOS_EXCEL_FILE_LAYOUT layout = new BANCOS_EXCEL_FILE_LAYOUT();
         
         Sheet sheet = workbook.getSheetAt(0);
  
         Map<Integer, List<String>> data = new HashMap<>();
         int i = 0;
         for (Row row : sheet) {
+            Banco inst = new Banco();
+            EnderecoInstituicaoFinanceira endereco = new EnderecoInstituicaoFinanceira();
             data.put(i, new ArrayList<String>());
+            
+            int cellIndex = 0;
             for (Cell cell : row) {
-                System.out.println(cell);
+                String columnName = layout.GET_COLUMN_NAME_INDEX(cellIndex);
+                if(columnName.equals(layout.getEndereco_object_type()))
+                    endereco = layout.PUT_ENDERECO_VALUES(endereco, columnName, cell.toString());
+                else if(columnName.equals(layout.getInstituicao_object_type()))
+                    inst = layout.PUT_BANCO_VALUES(inst, columnName, cell.toString());
+                cellIndex++;
             }
             i++;
         }
 
         return "excel";
+    }
+    
+    public String ADD_INSTITUICAO() throws IOException {
+        if(fileName.contains("BANCOS"))
+            return READ_FILE_BANCOS();
+       
+        return "ERRO";
     }
 }
