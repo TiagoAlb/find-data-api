@@ -5,7 +5,7 @@
  */
 package br.com.finddata.DAO;
 
-import br.com.finddata.model.Banco;
+import br.com.finddata.model.EnderecoInstituicaoFinanceira;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author Tiago
  */
 @Repository
-public interface BancoDAO extends PagingAndSortingRepository<Banco, Integer> {
+public interface EnderecoInstituicaoFinanceiraDAO extends PagingAndSortingRepository<EnderecoInstituicaoFinanceira, Integer> {
     
 }

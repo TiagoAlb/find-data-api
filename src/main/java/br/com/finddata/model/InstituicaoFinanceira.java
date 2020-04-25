@@ -57,7 +57,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = nome.trim();
     }
 
     public String getCnpj() {
@@ -65,7 +65,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+        this.cnpj = cnpj.trim().replace(".", "").replace("-", "");
     }
 
     public String getTelefone() {
@@ -73,7 +73,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone;
+        this.telefone = telefone.trim().replace(".", "").replace("-", "");
     }
 
     public String getDdd() {
@@ -81,7 +81,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setDdd(String ddd) {
-        this.ddd = ddd;
+        this.ddd = ddd.trim();
     }
 
     public String getSite() {
@@ -89,7 +89,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setSite(String site) {
-        this.site = site;
+        this.site = site.trim();
     }
 
     public String getEmail() {
@@ -97,7 +97,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
     }
 
     public EnderecoInstituicaoFinanceira getEndereco() {

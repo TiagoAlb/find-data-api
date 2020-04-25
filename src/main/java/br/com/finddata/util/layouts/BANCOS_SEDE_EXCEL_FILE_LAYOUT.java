@@ -5,7 +5,7 @@
  */
 package br.com.finddata.util.layouts;
 
-import br.com.finddata.model.Banco;
+import br.com.finddata.model.BancoSede;
 import br.com.finddata.model.EnderecoInstituicaoFinanceira;
 import br.com.finddata.util.Util;
 import java.util.HashMap;
@@ -15,13 +15,13 @@ import java.util.Map;
  *
  * @author Tiago
  */
-public class BANCOS_EXCEL_FILE_LAYOUT extends Util {
+public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
     
     private Map<Integer, String> attributes = new HashMap<Integer, String>();
     private String endereco_object_type = "endereco";
     private String instituicao_object_type = "instituicao";
     
-    public BANCOS_EXCEL_FILE_LAYOUT() {
+    public BANCOS_SEDE_EXCEL_FILE_LAYOUT() {
         this.attributes.put(0, "cnpj");
         this.attributes.put(1, "nome");
         this.attributes.put(2, "segmento");
@@ -39,11 +39,11 @@ public class BANCOS_EXCEL_FILE_LAYOUT extends Util {
     }
     
     public String GET_COLUMN_NAME_INDEX(int index) {
-        return attributes.get(index);
+        return NULL_TO_EMPTY(attributes.get(index));
     }
     
     public String GET_OBJECT_TYPE_NAME(String columnName) {
-        switch(columnName) {
+        switch(NULL_TO_EMPTY(columnName)) {
             case "cnpj":
                 return this.instituicao_object_type;
             case "nome":
@@ -77,24 +77,32 @@ public class BANCOS_EXCEL_FILE_LAYOUT extends Util {
         }
     }
     
-    public Banco PUT_BANCO_VALUES(Banco banco, String columnName, String value) {
+    public BancoSede PUT_BANCO_VALUES(BancoSede banco, String columnName, String value) {
         switch(columnName) {
             case "cnpj":
                 banco.setCnpj(value);
+                break;
             case "nome":
                 banco.setNome(value);  
+                break;
             case "segmento":
                 banco.setSegmento(value); 
+                break;
             case "ddd":
                 banco.setDdd(value); 
+                break;
             case "telefone":
                 banco.setTelefone(value); 
+                break;
             case "cart_comercial":
                 banco.setCart_comercial(STR_TO_BOOLEAN(value));   
+                break;
             case "email":
                 banco.setEmail(value); 
+                break;
             case "site":
-                banco.setCnpj(value); 
+                banco.setSite(value); 
+                break;
         }
         
         return banco;
@@ -104,16 +112,22 @@ public class BANCOS_EXCEL_FILE_LAYOUT extends Util {
         switch(columnName) {
             case "endereco":
                 endereco.setEndereco(value);
+                break;
             case "complemento":
                 endereco.setComplemento(value); 
+                break;
             case "bairro":
                 endereco.setBairro(value);
+                break;
             case "cep":
                 endereco.setCep(value);
+                break;
             case "municipio":
                 endereco.setMunicipio(value);
+                break;
             case "uf":
                 endereco.setUf(value);
+                break;
         }
         
         return endereco;

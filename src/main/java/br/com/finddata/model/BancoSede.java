@@ -13,7 +13,7 @@ import javax.persistence.Entity;
  * @author Tiago
  */
 @Entity
-public class Banco extends InstituicaoFinanceira {
+public class BancoSede extends InstituicaoFinanceira {
     @Column(length = 500)
     private String segmento;
     
@@ -27,7 +27,7 @@ public class Banco extends InstituicaoFinanceira {
     }
 
     public void setSegmento(String segmento) {
-        this.segmento = segmento;
+        this.segmento = segmento.trim();
     }
 
     public String getCodigo() {

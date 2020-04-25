@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -24,5 +25,20 @@ public class Util {
     public boolean STR_TO_BOOLEAN(String value) {
         value = value.toLowerCase().trim();
         return (value!=null) && (value.equals("true") || value.equals("sim") || value.equals("1"));
+    }
+    
+    public String NULL_TO_EMPTY(String value) {
+        if(value!=null)
+            return value;
+        else
+            return "";
+    }
+    
+    public boolean IS_NUMERIC(String value) {
+        Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+        if (value == null) 
+            return false; 
+  
+        return pattern.matcher(value).matches();
     }
 }

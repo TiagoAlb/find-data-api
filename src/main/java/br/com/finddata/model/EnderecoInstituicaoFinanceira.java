@@ -53,7 +53,7 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     }
 
     public void setEndereco(String endereco) {
-        this.endereco = endereco;
+        this.endereco = endereco.trim();
     }
 
     public String getComplemento() {
@@ -61,7 +61,7 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     }
 
     public void setComplemento(String complemento) {
-        this.complemento = complemento;
+        this.complemento = complemento.trim();
     }
 
     public String getUf() {
@@ -69,15 +69,15 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     }
 
     public void setUf(String uf) {
-        this.uf = uf;
+        this.uf = uf.trim();
     }
 
     public String getMunicipio() {
-        return municipio;
+        return municipio.trim();
     }
 
     public void setMunicipio(String municipio) {
-        this.municipio = municipio;
+        this.municipio = municipio.trim();
     }
 
     public String getBairro() {
@@ -85,7 +85,7 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     }
 
     public void setBairro(String bairro) {
-        this.bairro = bairro;
+        this.bairro = bairro.trim();
     }
 
     public String getCep() {
@@ -93,6 +93,6 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     }
 
     public void setCep(String cep) {
-        this.cep = cep;
+        this.cep = cep.trim().replace(".", "").replace("-", "");
     }
 }
