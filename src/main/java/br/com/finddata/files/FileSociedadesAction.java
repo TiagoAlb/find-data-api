@@ -5,10 +5,10 @@
  */
 package br.com.finddata.files;
 
-import br.com.finddata.model.BancoSede;
 import br.com.finddata.model.EnderecoInstituicaoFinanceira;
 import br.com.finddata.model.InstituicaoFinanceira;
-import br.com.finddata.util.layouts.BANCOS_SEDE_EXCEL_FILE_LAYOUT;
+import br.com.finddata.model.Sociedade;
+import br.com.finddata.util.layouts.SOCIEDADES_EXCEL_FILE_LAYOUT;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,9 +25,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Tiago
  */
-public class FileBancosSedeAction extends FileAction {
+public class FileSociedadesAction extends FileAction {
     
-    public FileBancosSedeAction(String fileLocation, String fileName) {
+    public FileSociedadesAction(String fileLocation, String fileName) {
         super(fileLocation, fileName);
     }
     
@@ -35,13 +35,13 @@ public class FileBancosSedeAction extends FileAction {
     public List<InstituicaoFinanceira> READ_FILE() throws IOException {
         FileInputStream file = new FileInputStream(new File(fileLocation + fileName));
         Workbook workbook = new XSSFWorkbook(file);
-        BANCOS_SEDE_EXCEL_FILE_LAYOUT layout = new BANCOS_SEDE_EXCEL_FILE_LAYOUT();
-        List<InstituicaoFinanceira> bancosSede = new ArrayList<>();
+        SOCIEDADES_EXCEL_FILE_LAYOUT layout = new SOCIEDADES_EXCEL_FILE_LAYOUT();
+        List<InstituicaoFinanceira> sociedades = new ArrayList<>();
         Sheet sheet = workbook.getSheetAt(0);
         int i = 0;
         boolean infoStart = false;
         for (Row row : sheet) {
-            BancoSede inst = new BancoSede();
+            Sociedade inst = new Sociedade();
             EnderecoInstituicaoFinanceira endereco = new EnderecoInstituicaoFinanceira();
             int cellIndex = 0;
             
@@ -62,7 +62,7 @@ public class FileBancosSedeAction extends FileAction {
                         if(columnObjectName.equals(layout.getEndereco_object_type()))
                             endereco = layout.PUT_ENDERECO_VALUES(endereco, columnName, cell.getRichStringCellValue().getString());
                         else if(columnObjectName.equals(layout.getInstituicao_object_type()))
-                            inst = layout.PUT_BANCO_SEDE_VALUES(inst, columnName, cell.getRichStringCellValue().getString());
+                            inst = layout.PUT_SOCIEDADE_VALUES(inst, columnName, cell.getRichStringCellValue().getString());
                     }
                 }
                 cellIndex++;
@@ -70,12 +70,12 @@ public class FileBancosSedeAction extends FileAction {
             
             if(infoStart) {
                 inst.setEndereco(endereco);
-                bancosSede.add(inst);
+                sociedades.add(inst);
             }
             
             i++;
         }
 
-        return bancosSede;
+        return sociedades;
     }
 }

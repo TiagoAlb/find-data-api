@@ -7,6 +7,7 @@ package br.com.finddata.util.layouts;
 
 import br.com.finddata.model.BancoSede;
 import br.com.finddata.model.EnderecoInstituicaoFinanceira;
+import br.com.finddata.model.Sociedade;
 import br.com.finddata.util.Util;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +16,12 @@ import java.util.Map;
  *
  * @author Tiago
  */
-public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
+public class SOCIEDADES_EXCEL_FILE_LAYOUT extends Util {
     private Map<Integer, String> attributes = new HashMap<Integer, String>();
     private String endereco_object_type = "endereco";
     private String instituicao_object_type = "instituicao";
     
-    public BANCOS_SEDE_EXCEL_FILE_LAYOUT() {
+    public SOCIEDADES_EXCEL_FILE_LAYOUT() {
         this.attributes.put(0, "cnpj");
         this.attributes.put(1, "nome");
         this.attributes.put(2, "segmento");
@@ -32,9 +33,8 @@ public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
         this.attributes.put(8, "uf");
         this.attributes.put(9, "ddd");
         this.attributes.put(10, "telefone");
-        this.attributes.put(11, "cart_comercial");
-        this.attributes.put(12, "email");
-        this.attributes.put(13, "site");
+        this.attributes.put(11, "email");
+        this.attributes.put(12, "site");
     }
     
     public String GET_COLUMN_NAME_INDEX(int index) {
@@ -52,8 +52,6 @@ public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
             case "ddd":
                 return this.instituicao_object_type;  
             case "telefone":
-                return this.instituicao_object_type;  
-            case "cart_comercial":
                 return this.instituicao_object_type;  
             case "email":
                 return this.instituicao_object_type;  
@@ -76,35 +74,32 @@ public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
         }
     }
     
-    public BancoSede PUT_BANCO_SEDE_VALUES(BancoSede banco_sede, String columnName, String value) {
+    public Sociedade PUT_SOCIEDADE_VALUES(Sociedade sociedade, String columnName, String value) {
         switch(columnName) {
             case "cnpj":
-                banco_sede.setCnpj(value);
+                sociedade.setCnpj(value);
                 break;
             case "nome":
-                banco_sede.setNome(value);  
+                sociedade.setNome(value);  
                 break;
             case "segmento":
-                banco_sede.setSegmento(value); 
+                sociedade.setSegmento(value); 
                 break;
             case "ddd":
-                banco_sede.setDdd(value); 
+                sociedade.setDdd(value); 
                 break;
             case "telefone":
-                banco_sede.setTelefone(value); 
-                break;
-            case "cart_comercial":
-                banco_sede.setCart_comercial(STR_TO_BOOLEAN(value));   
+                sociedade.setTelefone(value); 
                 break;
             case "email":
-                banco_sede.setEmail(value); 
+                sociedade.setEmail(value); 
                 break;
             case "site":
-                banco_sede.setSite(value); 
+                sociedade.setSite(value); 
                 break;
         }
         
-        return banco_sede;
+        return sociedade;
     }
     
     public EnderecoInstituicaoFinanceira PUT_ENDERECO_VALUES(EnderecoInstituicaoFinanceira endereco, String columnName, String value) {

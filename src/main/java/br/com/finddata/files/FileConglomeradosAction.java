@@ -5,10 +5,9 @@
  */
 package br.com.finddata.files;
 
-import br.com.finddata.model.BancoSede;
-import br.com.finddata.model.EnderecoInstituicaoFinanceira;
+import br.com.finddata.model.Conglomerado;
 import br.com.finddata.model.InstituicaoFinanceira;
-import br.com.finddata.util.layouts.BANCOS_SEDE_EXCEL_FILE_LAYOUT;
+import br.com.finddata.util.layouts.CONGLOMERADOS_EXCEL_FILE_LAYOUT;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,9 +24,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author Tiago
  */
-public class FileBancosSedeAction extends FileAction {
+public class FileConglomeradosAction extends FileAction {
     
-    public FileBancosSedeAction(String fileLocation, String fileName) {
+    public FileConglomeradosAction(String fileLocation, String fileName) {
         super(fileLocation, fileName);
     }
     
@@ -35,14 +34,13 @@ public class FileBancosSedeAction extends FileAction {
     public List<InstituicaoFinanceira> READ_FILE() throws IOException {
         FileInputStream file = new FileInputStream(new File(fileLocation + fileName));
         Workbook workbook = new XSSFWorkbook(file);
-        BANCOS_SEDE_EXCEL_FILE_LAYOUT layout = new BANCOS_SEDE_EXCEL_FILE_LAYOUT();
-        List<InstituicaoFinanceira> bancosSede = new ArrayList<>();
+        CONGLOMERADOS_EXCEL_FILE_LAYOUT layout = new CONGLOMERADOS_EXCEL_FILE_LAYOUT();
+        ArrayList<InstituicaoFinanceira> conglomerados = new ArrayList<>();
         Sheet sheet = workbook.getSheetAt(0);
         int i = 0;
         boolean infoStart = false;
         for (Row row : sheet) {
-            BancoSede inst = new BancoSede();
-            EnderecoInstituicaoFinanceira endereco = new EnderecoInstituicaoFinanceira();
+            Conglomerado inst = new Conglomerado();
             int cellIndex = 0;
             
             row.getCell(0).setCellType(CellType.STRING);
@@ -59,23 +57,20 @@ public class FileBancosSedeAction extends FileAction {
                     String columnObjectName = layout.GET_OBJECT_TYPE_NAME(columnName);
                     
                     if(!columnObjectName.contains("INVALID")) {
-                        if(columnObjectName.equals(layout.getEndereco_object_type()))
-                            endereco = layout.PUT_ENDERECO_VALUES(endereco, columnName, cell.getRichStringCellValue().getString());
-                        else if(columnObjectName.equals(layout.getInstituicao_object_type()))
-                            inst = layout.PUT_BANCO_SEDE_VALUES(inst, columnName, cell.getRichStringCellValue().getString());
+                        if(columnObjectName.equals(layout.getInstituicao_object_type()))
+                            inst = layout.PUT_CONGLOMERADO_VALUES(inst, columnName, cell.getRichStringCellValue().getString());
                     }
                 }
                 cellIndex++;
             }
             
             if(infoStart) {
-                inst.setEndereco(endereco);
-                bancosSede.add(inst);
+                conglomerados.add(inst);
             }
             
             i++;
         }
 
-        return bancosSede;
+        return conglomerados;
     }
 }

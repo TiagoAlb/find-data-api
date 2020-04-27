@@ -6,6 +6,7 @@
 package br.com.finddata.util.layouts;
 
 import br.com.finddata.model.BancoSede;
+import br.com.finddata.model.Cooperativa;
 import br.com.finddata.model.EnderecoInstituicaoFinanceira;
 import br.com.finddata.util.Util;
 import java.util.HashMap;
@@ -15,26 +16,28 @@ import java.util.Map;
  *
  * @author Tiago
  */
-public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
+public class COOPERATIVAS_EXCEL_FILE_LAYOUT extends Util {
     private Map<Integer, String> attributes = new HashMap<Integer, String>();
     private String endereco_object_type = "endereco";
     private String instituicao_object_type = "instituicao";
     
-    public BANCOS_SEDE_EXCEL_FILE_LAYOUT() {
+    public COOPERATIVAS_EXCEL_FILE_LAYOUT() {
         this.attributes.put(0, "cnpj");
         this.attributes.put(1, "nome");
-        this.attributes.put(2, "segmento");
-        this.attributes.put(3, "endereco");
-        this.attributes.put(4, "complemento");
-        this.attributes.put(5, "bairro");
-        this.attributes.put(6, "cep");
-        this.attributes.put(7, "municipio");
-        this.attributes.put(8, "uf");
-        this.attributes.put(9, "ddd");
-        this.attributes.put(10, "telefone");
-        this.attributes.put(11, "cart_comercial");
-        this.attributes.put(12, "email");
-        this.attributes.put(13, "site");
+        this.attributes.put(2, "endereco");
+        this.attributes.put(3, "complemento");
+        this.attributes.put(4, "bairro");
+        this.attributes.put(5, "cep");
+        this.attributes.put(6, "municipio");
+        this.attributes.put(7, "uf");
+        this.attributes.put(8, "ddd");
+        this.attributes.put(9, "telefone");
+        this.attributes.put(10, "classe");
+        this.attributes.put(11, "criterio_associacao");
+        this.attributes.put(12, "categ_coop_sing");
+        this.attributes.put(13, "filiacao");
+        this.attributes.put(14, "email");
+        this.attributes.put(15, "site");
     }
     
     public String GET_COLUMN_NAME_INDEX(int index) {
@@ -47,13 +50,17 @@ public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
                 return this.instituicao_object_type;
             case "nome":
                 return this.instituicao_object_type;    
-            case "segmento":
+            case "classe":
                 return this.instituicao_object_type;  
             case "ddd":
                 return this.instituicao_object_type;  
             case "telefone":
                 return this.instituicao_object_type;  
-            case "cart_comercial":
+            case "criterio_associacao":
+                return this.instituicao_object_type;  
+            case "categ_coop_sing":
+                return this.instituicao_object_type;  
+            case "filiacao":
                 return this.instituicao_object_type;  
             case "email":
                 return this.instituicao_object_type;  
@@ -76,35 +83,41 @@ public class BANCOS_SEDE_EXCEL_FILE_LAYOUT extends Util {
         }
     }
     
-    public BancoSede PUT_BANCO_SEDE_VALUES(BancoSede banco_sede, String columnName, String value) {
+    public Cooperativa PUT_COOPERATIVA_VALUES(Cooperativa cooperativa, String columnName, String value) {
         switch(columnName) {
             case "cnpj":
-                banco_sede.setCnpj(value);
+                cooperativa.setCnpj(value);
                 break;
             case "nome":
-                banco_sede.setNome(value);  
+                cooperativa.setNome(value);  
                 break;
-            case "segmento":
-                banco_sede.setSegmento(value); 
+            case "classe":
+                cooperativa.setClasse(value); 
                 break;
             case "ddd":
-                banco_sede.setDdd(value); 
+                cooperativa.setDdd(value); 
                 break;
             case "telefone":
-                banco_sede.setTelefone(value); 
+                cooperativa.setTelefone(value); 
                 break;
-            case "cart_comercial":
-                banco_sede.setCart_comercial(STR_TO_BOOLEAN(value));   
+            case "criterio_associacao":
+                cooperativa.setCriterio_associacao(value);   
+                break;
+            case "categ_coop_sing":
+                cooperativa.setCateg_coop_sing(value);   
+                break;
+            case "filiacao":
+                cooperativa.setFiliacao(value);   
                 break;
             case "email":
-                banco_sede.setEmail(value); 
+                cooperativa.setEmail(value); 
                 break;
             case "site":
-                banco_sede.setSite(value); 
+                cooperativa.setSite(value); 
                 break;
         }
         
-        return banco_sede;
+        return cooperativa;
     }
     
     public EnderecoInstituicaoFinanceira PUT_ENDERECO_VALUES(EnderecoInstituicaoFinanceira endereco, String columnName, String value) {

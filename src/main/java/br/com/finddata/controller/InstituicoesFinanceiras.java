@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.finddata.DAO.BancoSedeDAO;
 import br.com.finddata.DAO.EnderecoInstituicaoFinanceiraDAO;
 import br.com.finddata.files.FileAction;
+import br.com.finddata.files.FileBancosAction;
 import br.com.finddata.files.FileBancosSedeAction;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class InstituicoesFinanceiras {
 
         fileAction = new FileAction(fileLocation, fileName).GET_FILE_LAYOUT();
         fileAction.UPLOAD_FILE(in);
-        POST_INSTITUICAO_FINANCEIRA();
+        POST_INSTITUICAO_FINANCEIRA(fileLocation, fileName);
         return "OK";
     }
 
@@ -67,8 +68,10 @@ public class InstituicoesFinanceiras {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/instituicoes_financeiras")
-    public String POST_INSTITUICAO_FINANCEIRA() throws IOException {
+    public String POST_INSTITUICAO_FINANCEIRA(String fileLocation, String fileName) throws IOException {
+        fileAction = new FileAction(fileLocation, fileName).GET_FILE_LAYOUT();
         if (fileAction.getFileName().toLowerCase().contains("bancos")) {
+            fileAction = new FileBancosSedeAction(fileLocation, fileName);
             bancosSede.POST_BANCO_SEDE(fileAction.READ_FILE());
         }
         return "OK";

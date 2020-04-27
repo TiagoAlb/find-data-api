@@ -5,6 +5,7 @@
  */
 package br.com.finddata.model;
 
+import br.com.finddata.util.Util;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +18,10 @@ import javax.persistence.Id;
  * @author Tiago
  */
 @Entity
-public class EnderecoInstituicaoFinanceira implements Serializable {
+public class EnderecoInstituicaoFinanceira extends Util implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
     
     @Column(length = 500)
     private String endereco;
@@ -40,7 +41,7 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     @Column(length = 8)
     private String cep;
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
@@ -93,6 +94,6 @@ public class EnderecoInstituicaoFinanceira implements Serializable {
     }
 
     public void setCep(String cep) {
-        this.cep = cep.trim().replace(".", "").replace("-", "");
+        this.cep = CLEAN_NUMERIC(cep);
     }
 }

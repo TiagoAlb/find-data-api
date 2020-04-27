@@ -7,6 +7,7 @@ package br.com.finddata.files;
 
 import br.com.finddata.model.BancoSede;
 import br.com.finddata.model.EnderecoInstituicaoFinanceira;
+import br.com.finddata.model.InstituicaoFinanceira;
 import br.com.finddata.util.Util;
 import br.com.finddata.util.layouts.BANCOS_SEDE_EXCEL_FILE_LAYOUT;
 import java.io.File;
@@ -64,8 +65,8 @@ public class FileAction extends Util {
         return action;
     }
 
-    public List<BancoSede> READ_FILE() throws IOException {
-        return new ArrayList<>();
+    public List<InstituicaoFinanceira> READ_FILE() throws IOException {
+        return new ArrayList<InstituicaoFinanceira>();
     }
     
     

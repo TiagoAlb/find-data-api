@@ -5,6 +5,9 @@
  */
 package br.com.finddata.model;
 
+import br.com.finddata.util.Util;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -18,7 +21,7 @@ import javax.persistence.OneToOne;
  * @author Tiago
  */
 @MappedSuperclass
-public class InstituicaoFinanceira implements Serializable {
+public class InstituicaoFinanceira extends Util implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -42,6 +45,7 @@ public class InstituicaoFinanceira implements Serializable {
     private String email;
    
     @OneToOne
+    @JsonInclude(Include.NON_NULL)
     private EnderecoInstituicaoFinanceira endereco;
 
     public long getId() {
@@ -57,7 +61,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setNome(String nome) {
-        this.nome = nome.trim();
+        this.nome = NULL_TO_EMPTY(nome).trim();
     }
 
     public String getCnpj() {
@@ -65,7 +69,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setCnpj(String cnpj) {
-        this.cnpj = cnpj.trim().replace(".", "").replace("-", "");
+        this.cnpj = CLEAN_NUMERIC(NULL_TO_EMPTY(cnpj));
     }
 
     public String getTelefone() {
@@ -73,7 +77,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setTelefone(String telefone) {
-        this.telefone = telefone.trim().replace(".", "").replace("-", "");
+        this.telefone = CLEAN_NUMERIC(NULL_TO_EMPTY(telefone));
     }
 
     public String getDdd() {
@@ -81,7 +85,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setDdd(String ddd) {
-        this.ddd = ddd.trim();
+        this.ddd = NULL_TO_EMPTY(ddd).trim();
     }
 
     public String getSite() {
@@ -89,7 +93,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setSite(String site) {
-        this.site = site.trim();
+        this.site = NULL_TO_EMPTY(site).trim();
     }
 
     public String getEmail() {
@@ -97,7 +101,7 @@ public class InstituicaoFinanceira implements Serializable {
     }
 
     public void setEmail(String email) {
-        this.email = email.trim();
+        this.email = NULL_TO_EMPTY(email).trim();
     }
 
     public EnderecoInstituicaoFinanceira getEndereco() {

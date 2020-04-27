@@ -30,8 +30,22 @@ public class Util {
     public String NULL_TO_EMPTY(String value) {
         if(value!=null)
             return value;
-        else
-            return "";
+        
+        return "";
+    }
+    
+    public String NULL_TO_ZERO(String value) {
+        if(value!=null)
+            return value;
+        
+        return "0";
+    }
+    
+    public String CLEAN_NUMERIC(String value) {
+        if(value!=null)
+            return value.trim().replace(".", "").replace("-", "");
+        
+        return "";
     }
     
     public boolean IS_NUMERIC(String value) {
